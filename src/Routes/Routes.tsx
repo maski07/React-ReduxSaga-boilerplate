@@ -38,7 +38,6 @@ const Routes = (): JSX.Element => {
                 <Switch>
                     <Route path="/" component={SamplePage} exact />
                     <Route path="/SamplePage" component={SamplePage} exact />
-                    <Routes />
                     {/* <LazyComponent.Login path="/:lang/login" exact /> */}
                     {/* <PrivateRoute component={LazyComponent.Home} path="/:lang/" exact /> */}
                     {/* <Redirect from="**" to={`/${lang}/`} exact /> */}
