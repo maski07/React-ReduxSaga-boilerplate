@@ -1,5 +1,5 @@
-
-import React, { Suspense } from "react";
+import { Suspense } from "react";
+import { useEffect } from "react";
 import {
     Router,
     Route,
@@ -8,22 +8,27 @@ import {
     useHistory,
 } from "react-router-dom";
 import Loader from "../Components/Loader/Loader";
-import SamplePage from "../Components/Pages/SamplePage";
+import TodoListPage from "../Components/Pages/ToDoListPage/TodoListPage";
+import { handler, store } from "../Store/Main";
 import history from "./History";
-
 // import Loader from "../components/Loader/Loader";
 // import PrivateRoute from "../utils/PrivateRoute";
-// import store from "../store";
+
 
 const Routes = (): JSX.Element => {
     const location = useLocation();
     const History = useHistory();
-    console.log(location, History)
-    // useEffect(() => {
-    //     store.dispatch(
-    //         setCurrentLang(location.pathname.split("/")[1] === "en" ? "en" : "ar")
-    //     );
-    // }, []);
+    console.info(location, History);
+    // const state = select<() => IState>(() => state);
+    // const state: ReturnType<IState> = select();
+    const state = store.getState();
+    useEffect(function () {
+        // const state: IState = yield select();
+        // console.log(state);
+        // store.dispatch(
+        //     setCurrentLang(location.pathname.split("/")[1] === "en" ? "en" : "ar")
+        // );
+    }, []);
 
     // useEffect(() => {
     //     const pathname = location.pathname.split("/");
@@ -36,8 +41,10 @@ const Routes = (): JSX.Element => {
         <Suspense fallback={<Loader />}>
             <Router history={history}>
                 <Switch>
-                    <Route path="/" component={SamplePage} exact />
-                    <Route path="/SamplePage" component={SamplePage} exact />
+                    <Route path="/" exact component={() =>
+                        <TodoListPage state={state} action={handler} />} />
+                    <Route path="/todoList" exact component={() =>
+                        <TodoListPage state={state} action={handler} />} />
                     {/* <LazyComponent.Login path="/:lang/login" exact /> */}
                     {/* <PrivateRoute component={LazyComponent.Home} path="/:lang/" exact /> */}
                     {/* <Redirect from="**" to={`/${lang}/`} exact /> */}

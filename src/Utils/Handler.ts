@@ -1,10 +1,11 @@
 import axios, { AxiosInstance, AxiosResponse } from "axios";
+import { DomainUrl } from "../Common/Common";
 
 const AxiosFactory = (): AxiosInstance => {
     // authToken
     const token = '';
     return axios.create({
-        baseURL: 'http://localhost:8080',
+        baseURL: DomainUrl,
         headers: {
             'Content-Type': 'application/json',
             'X-Requested-With': 'XMLHttpRequest',
@@ -14,16 +15,22 @@ const AxiosFactory = (): AxiosInstance => {
     });
 }
 
-// 仮実装
-export const Get = async <T>(endpoint: string, params: {} = {}): Promise<AxiosResponse<T>> => {
+const Get = async <T>(endpoint: string, params: {} = {}): Promise<AxiosResponse<T>> => {
     return await AxiosFactory().get(endpoint, params);
 }
-export const Put = async <T>(endpoint: string, params: {} = {}): Promise<AxiosResponse<T>> => {
+const Put = async <T>(endpoint: string, params: {} = {}): Promise<AxiosResponse<T>> => {
     return await AxiosFactory().put(endpoint, params);
 }
-export const Post = async <T>(endpoint: string, params: {} = {}): Promise<AxiosResponse<T>> => {
+const Post = async <T>(endpoint: string, params: {} = {}): Promise<AxiosResponse<T>> => {
     return await AxiosFactory().post(endpoint, params);
 }
-export const Delete = async <T>(endpoint: string, params: {} = {}): Promise<AxiosResponse<T>> => {
+const Delete = async <T>(endpoint: string, params: {} = {}): Promise<AxiosResponse<T>> => {
     return await AxiosFactory().delete(endpoint, params);
 }
+
+export const ApiCall = {
+    Get,
+    Put,
+    Post,
+    Delete,
+} as const;
